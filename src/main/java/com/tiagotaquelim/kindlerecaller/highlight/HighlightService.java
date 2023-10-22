@@ -81,7 +81,7 @@ public class HighlightService {
         List<EmailHighlightField> emailFields = highlights.stream()
                 .map(highlight -> new EmailHighlightField(
                         highlight.getText(),
-                        highlight.getBook().getAuthor(),
+                        highlight.getBook().getTitle() + " - " + highlight.getBook().getAuthor(),
                         highlight.getNote()
                 ))
                 .toList();
