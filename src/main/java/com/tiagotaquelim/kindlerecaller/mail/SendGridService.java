@@ -24,10 +24,10 @@ public class SendGridService {
     @Value("${sendgrid.api.key}")
     private String sendGridApiKey;
 
-    @Value("${sendgrid.senderEmail}")
+    @Value("${sendgrid.sender}")
     private String senderEmail;
 
-    @Value("${sendgrid.templateId}")
+    @Value("${sendgrid.template}")
     private String templateId;
 
     public void sendTextEmail(List<Subscriber> subscribers, List<EmailHighlightField> emailFields) throws IOException {

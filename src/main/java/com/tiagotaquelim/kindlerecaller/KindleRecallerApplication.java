@@ -11,5 +11,6 @@ public class KindleRecallerApplication {
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication.run(KindleRecallerApplication.class, args);
 		// Arrays.stream(context.getBeanDefinitionNames()).sorted().forEach(System.out::println);
+
 	}
 }
