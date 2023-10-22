@@ -5,6 +5,7 @@ import com.tiagotaquelim.kindlerecaller.book.BookRepository;
 import com.tiagotaquelim.kindlerecaller.mail.SendGridService;
 import com.tiagotaquelim.kindlerecaller.pojos.BookPojo;
 import com.tiagotaquelim.kindlerecaller.gcp.GcpFileStorage;
+import com.tiagotaquelim.kindlerecaller.pojos.EmailHighlightField;
 import com.tiagotaquelim.kindlerecaller.pojos.HighlightPojo;
 import com.tiagotaquelim.kindlerecaller.subscriber.Subscriber;
 import com.tiagotaquelim.kindlerecaller.subscriber.SubscriberService;
@@ -77,18 +78,16 @@ public class HighlightService {
     public void sendRandomHighlightsEmailToSubscribers() throws IOException {
         List<Highlight> highlights = highlightRepository.findRandomHighlights(3);
 
-        Map<String, String> quotesWithAuthors = highlights.stream()
-                .collect(
-                        HashMap::new,
-                        (map, highlight) -> map.put(
-                                highlight.getText(),
-                                highlight.getBook().getTitle() + " - " + highlight.getBook().getAuthor()
-                        ),
-                        HashMap::putAll
-                );
+        List<EmailHighlightField> emailFields = highlights.stream()
+                .map(highlight -> new EmailHighlightField(
+                        highlight.getText(),
+                        highlight.getBook().getAuthor(),
+                        highlight.getNote()
+                ))
+                .toList();
 
         List<Subscriber> subscribers = subscriberService.getAllSubscribers();
 
-        sendGridService.sendTextEmail(subscribers, quotesWithAuthors);
+        sendGridService.sendTextEmail(subscribers, emailFields);
     }
 }
