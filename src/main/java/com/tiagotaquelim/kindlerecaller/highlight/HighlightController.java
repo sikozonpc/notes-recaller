@@ -1,17 +1,14 @@
 package com.tiagotaquelim.kindlerecaller.highlight;
 
-import com.tiagotaquelim.kindlerecaller.book.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin
 @RestController
-@RequestMapping("api/v1/highlights" )
+@RequestMapping("api/v1/highlights")
 public class HighlightController {
     private final HighlightService highlightService;
 
@@ -25,18 +22,18 @@ public class HighlightController {
     public List<Highlight> getAll(
             @PathVariable("isbn") String isbn
     ) {
-        return highlightService.getBookHighlightsByBookIsbn(isbn);
+        return highlightService.getHighlightsByBook(isbn);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/book/parse")
-    public Optional<Book> parseBookAndCreateHighlights(@RequestParam("filename") String filename) throws IOException {
-        return highlightService.parseBookHighlightsAndCreateEntities(filename);
+    @PostMapping
+    public void createHighlight(@RequestBody Highlight highlight) {
+        highlightService.createHighlight(highlight);
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PostMapping("/mail-subscribers")
-    public void mailSubscribers() throws IOException {
-        highlightService.sendRandomHighlightsEmailToSubscribers();
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping
+    public void deleteHighlight(@RequestBody Long id) {
+        highlightService.deleteHighlight(id);
     }
 }
