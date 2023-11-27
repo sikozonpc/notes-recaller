@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class HighlightsEmailTemplate extends BaseMailTemplate<SubscriberEmailData> {
-    @Value("${sendgrid.highlightsTemplate}")
+    @Value("${sendgrid.highlights-template}")
     private String templateId;
 
     @Override

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class WelcomeEmailTemplate extends BaseMailTemplate<Subscriber> {
-    @Value("${sendgrid.welcomeTemplate}")
+    @Value("${sendgrid.welcome-template}")
     private String templateId;
 
     @Override
