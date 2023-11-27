@@ -6,6 +6,7 @@ import com.tiagotaquelim.kindlerecaller.highlight.Highlight;
 import com.tiagotaquelim.kindlerecaller.highlight.HighlightRepository;
 import com.tiagotaquelim.kindlerecaller.pojos.BookPojo;
 import com.tiagotaquelim.kindlerecaller.pojos.HighlightPojo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -17,6 +18,7 @@ public class BookService {
     private final BookRepository bookRepository;
     private final GcpFileStorage fs;
 
+    @Autowired
     public BookService(HighlightRepository highlightRepository, BookRepository bookRepository, GcpFileStorage fs) {
         this.highlightRepository = highlightRepository;
         this.bookRepository = bookRepository;

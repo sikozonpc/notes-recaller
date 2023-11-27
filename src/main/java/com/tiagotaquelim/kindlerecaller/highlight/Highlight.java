@@ -1,10 +1,11 @@
 package com.tiagotaquelim.kindlerecaller.highlight;
 
 import com.tiagotaquelim.kindlerecaller.book.Book;
+import com.tiagotaquelim.kindlerecaller.subscriber.Subscriber;
 import jakarta.persistence.*;
 
 @Table
-@Entity(name="highlight")
+@Entity(name = "highlight")
 public class Highlight {
     @Column(updatable = false)
     @Id()
@@ -13,21 +14,28 @@ public class Highlight {
             sequenceName = "highlight_sequence",
             allocationSize = 1
     )
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "highlight_sequence" )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "highlight_sequence")
     private Long id;
 
-    @Column(nullable=false, columnDefinition="TEXT")
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String text;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     private String location;
 
-    @Column(nullable=true, columnDefinition="TEXT")
+    @Column(nullable = true, columnDefinition = "TEXT")
     private String note;
 
     @ManyToOne
-    @JoinColumn(name="bookIsbn", nullable=true)
+    @JoinColumn(name = "bookIsbn", nullable = true)
     private Book book;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "subscriberId",
+            nullable = true
+    )
+    private Subscriber subscriber;
 
     public Highlight() {}
 

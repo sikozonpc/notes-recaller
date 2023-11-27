@@ -18,6 +18,12 @@ public class SubscriberController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping("/send-email")
     public void mailSubscribers() throws IOException {
-        subscriberService.sendRandomHighlightsEmailToSubscribers();
+        subscriberService.sendRandomHighlightsEmailToSubscribers(3);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public void createSubscriber(@RequestBody Subscriber subscriber) throws IOException {
+        subscriberService.createAndMailSubscriber(subscriber);
     }
 }

@@ -15,6 +15,6 @@ public interface HighlightRepository extends JpaRepository<Highlight, Long> {
     @Query(value="SELECT * FROM highlight WHERE highlight.text = ?1", nativeQuery = true)
     Optional<Highlight> findByText(String text);
 
-    @Query(value="SELECT * FROM highlight ORDER BY RAND() LIMIT ?1", nativeQuery = true)
-    List<Highlight> findRandomHighlights(Number n);
+    @Query(value="SELECT * FROM highlight WHERE subscriber_id=?1 ORDER BY RAND() LIMIT ?2", nativeQuery = true)
+    List<Highlight> findRandomHighlights(Long subscriberId, Number numOfHighlights);
 }

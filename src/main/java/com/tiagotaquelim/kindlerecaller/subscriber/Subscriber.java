@@ -1,6 +1,9 @@
 package com.tiagotaquelim.kindlerecaller.subscriber;
 
+import com.tiagotaquelim.kindlerecaller.highlight.Highlight;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "subscriber")
@@ -15,11 +18,15 @@ public class Subscriber {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "highlight_sequence" )
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String name;
+
+    @OneToMany(mappedBy = "subscriber", fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    private List<Highlight> highlights;
 
     public Subscriber(Long id, String email, String name) {
         this.id = id;
@@ -48,5 +55,9 @@ public class Subscriber {
 
     public String getName() {
         return name;
+    }
+
+    public List<Highlight> getHighlights() {
+        return highlights;
     }
 }
